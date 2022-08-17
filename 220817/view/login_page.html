@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/login" method="post">
+      <!-- 요청보내면 body 키값으로 input으로 받은 name 들이 들어간다 :) -->
+      <h1>로그인 페이지</h1>
+      <label for="userID">아이디</label>
+      <input type="text" name="userID" /><br />
+      <label for="userPW">비밀번호</label>
+      <input type="text" name="userPW" /><br />
+      <button type="submit">로그인</button>
+    </form>
+  </body>
+</html>
