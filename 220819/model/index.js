@@ -28,5 +28,9 @@ db.Post = Post;
 User.init(sequelize);
 Post.init(sequelize);
 
+// 관계형 맺어주는 함수
+User.associate(db);
+Post.associate(db);
+
 // 내보내고 싶은 객체들을 담은 db 객체를 내보낸다.
 module.exports = db;

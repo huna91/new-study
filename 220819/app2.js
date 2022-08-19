@@ -4,7 +4,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const path = require("path");
-const { sequelize } = require("./model"); // => 아래와 같다(index.js는 자동으로 잡아줌)
+const { sequelize, User, Post } = require("./model"); // => 아래와 같다(index.js는 자동으로 잡아줌)
 // const {sequelize} = require("./model/index.js");
 
 const app = express();
@@ -48,8 +48,58 @@ sequelize
     console.log(err);
   });
 
+// app.get("/", (req, res) => {
+//   res.render("page", { data: 1 });
+// });
+
 app.get("/", (req, res) => {
-  res.render("page", { data: 1 });
+  res.render("create");
+});
+
+app.post("/create", (req, res) => {
+  const { name, age, msg } = req.body;
+  // create함수를 사용하면 해당 테이블에 컬럼을 추가할 수 있다.(객체형태의 데이터 넘겨받기)
+  const create = User.create({
+    // name 컬럼의 값
+    name: name,
+    // age 컬럼의 값
+    age: age,
+    // msg 컬럼의 값
+    msg: msg,
+  });
+  //위의 객체를 전달해서 컬럼을 추가할 수 있다.
+  // => 자바스크립트 구문으로 SQL 동작을 시킬 수 있다.
+  // => 쿼리문을 작성할 필요가 없다.
+});
+
+app.get("/user", (req, res) => {
+  // 추가된 유저들을 확인함
+  // findAll을 사용하여 전체 데이터를 찾는다.
+  // findAll : 매개변수로 검색할 옵션을 전달한다.(옵션이 없으면 다 가져옴)
+  User.findAll({})
+    .then((e) => {
+      res.render("page", { data: e });
+    })
+    .catch(() => {
+      res.render("err");
+    });
+});
+
+app.post("/create_post", (req, res) => {
+  const { name, text } = req.body;
+  console.log(name + text);
+  // User와 Post 테이블과 연결되어 있음.
+  // User는 id 키 Post user_id 키가 연결되어있음.
+  // findOne, findAll 은 매개변수로 검색할 옵션을 넣어줌
+  User.findOne({
+    where: { name: name },
+  }).then((e) => {
+    Post.create({
+      msg: text,
+      // foreingKey는 user_id 이고 User의 id와 연결한다고 정의하였기 때문에
+      user_id: e.id,
+    });
+  });
 });
 
 const PORT = 3000;
