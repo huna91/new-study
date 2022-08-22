@@ -102,6 +102,61 @@ app.post("/create_post", (req, res) => {
   });
 });
 
+// :name => 해당 키값을 조회함
+app.get("/view/:name", (req, res) => {
+  // 해당 유저의 이름을 조회하고
+  User.findOne({
+    where: {
+      // params로 전달받은 name 키값에 있는 값으로 검색
+      name: req.params.name,
+    },
+    // 리턴값을 단일 객체로 변형해서 보여준다.
+    // raw:true,
+    // 관계를 맺어놓은 모델을 불러온다.
+    // 해당 검색된 유저이름과 연결되어있는 모델을 찾아온다.
+    // user 모델의 id가 1이면 post 모델의 user_id키가 같은 애들을 조회함.
+    include: [
+      {
+        // Post 모델이 조회되었으면
+        model: Post,
+      },
+    ],
+  }).then((e) => {
+    e.dataValues.Posts = e.dataValues.Posts.map((i) => i.dataValues);
+    const Posts = e.dataValues;
+    console.log(Posts);
+    res.render("view", { data: Posts });
+  });
+});
+
+app.get("/del/:id", (req, res) => {
+  // destroy : 삭제 쿼리문
+  // 매개변수 : 객체 형태, 내용은 검색조건을 써줌
+  Post.destroy({
+    where: { id: req.params.id },
+  }).then(() => {
+    // 잘 끝나면 유저 페이지로 이동
+    res.redirect("/user");
+  });
+});
+
+app.post("/view_update", (req, res) => {
+  const { id, msg, text } = req.body;
+  // 수정 쿼리문 사용
+  // 매개변수 : {}, {}
+  //    - 첫번쨰 : 객체가 수정할 내용
+  //    - 두번쨰 : 수정할 내용이 들어간 객체 검색 조건
+  Post.update(
+    {
+      msg: msg,
+    },
+    {
+      // 아이디와 이전에 입력됬던 msg(view.html에서 text에 넣어놓음)를 갖고있는 객체를 검색
+      where: { id: id, msg: text },
+    }
+  );
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`${PORT}번 포트 연결`);

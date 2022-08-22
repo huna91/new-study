@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  </head>
+  <body>
+    작성자 : <%= data.name %>
+    <ul>
+      <% data.Posts.forEach(function(post){ %>
+      <li class="item" data-item="<%= post.id %>">
+        <p class="text"><%= post.msg %></p>
+        <input type="text" class="msg" /><button class="item_btn">수정</button>
+        <a href="/del/<%= post.id %>">삭제</a>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+  <script>
+    // html이 다 불러와졌을 때
+    window.onload = function () {
+      let items = document.querySelectorAll(".item");
+      items.forEach((e) => {
+        e.querySelector(".item_btn").onclick = function () {
+          // data 속성을 사용하여 (js에서 값을 가져다 사용하기 위해 기능을 씀)
+          let id = e.dataset.item;
+          // 수정할 내용 msg로 가져옴
+          let msg = e.querySelector(".msg").value;
+          // 수정하기 전 내용 가져옴
+          let text = e.querySelector(".text").innerHTML;
+          // ajax 함수 사용
+          // 입력 내용 : 요청 url, 요청 type, 전달할 데이터 data
+          $.ajax({
+            url: "/view_update",
+            type: "post",
+            data: { id, msg, text },
+          });
+          location.href = "/user";
+        };
+      });
+    };
+  </script>
+</html>
