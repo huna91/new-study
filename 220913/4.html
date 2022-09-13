@@ -1,0 +1,50 @@
+<!-- 십진수를 이진수로 변환하기 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let count = 0;
+    let twoString = [];
+    function base10ToString(n) {
+      function base10ToStringHelper(n) {
+        if (count == 0) {
+          if (n == 0) {
+            twoString.push(0);
+          } else {
+            twoString.push(1);
+          }
+          return n;
+        } else if (n >= Math.pow(2, count)) {
+          n = n - Math.pow(2, count);
+          count = count - 1;
+          twoString.push(1);
+
+          base10ToStringHelper(n);
+        } else {
+          count = count - 1;
+          twoString.push(0);
+          base10ToStringHelper(n);
+        }
+      }
+      if (n >= Math.pow(2, count)) {
+        count = count + 1;
+        // console.log(count);
+        base10ToString(n);
+      } else {
+        // console.log("-");
+        count = count - 1;
+        base10ToStringHelper(n);
+      }
+      //   console.log(twoString);
+      return twoString.join("");
+    }
+
+    console.log(base10ToString(100)); // 1100100
+  </script>
+</html>

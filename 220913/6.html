@@ -1,0 +1,39 @@
+<!-- 거꾸로 읽어도 같은 문자열 인가 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function isPalindromeRecursive(word) {
+      let Word = Array.from(word);
+      let arrWord = [...Word];
+      let temp = [];
+      for (let i = 0; i < Word.length; i++) {
+        temp.push(arrWord.pop());
+      }
+      isPalindromeRecursiveHelper(word, Word, temp);
+    }
+    let count = 0;
+    function isPalindromeRecursiveHelper(word, beginPos, endPos) {
+      if (count > beginPos.length) {
+        console.log("true");
+        return;
+      } else {
+        if (beginPos[count] == endPos[count]) {
+          count = count + 1;
+          isPalindromeRecursiveHelper(word, beginPos, endPos);
+        } else {
+          console.log("false");
+        }
+      }
+    }
+
+    // console.log(isPalindromeRecursive("appleelppa")); // true
+    console.log(isPalindromeRecursive("appleelpaa")); // false
+  </script>
+</html>

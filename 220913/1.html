@@ -1,0 +1,28 @@
+<!-- DOM 메모리 누수 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="one">One</div>
+    <div id="two">Two</div>
+  </body>
+  <script>
+    const one = document.getElementById("one");
+
+    one.addEventListener("click", function () {
+      const two = document.getElementById("two");
+      console.log(two); // 삭제 이후에도 html을 출력한다.
+      //   console.log(window.two);
+      //   document.body.removeChild(two);
+      if (two) {
+        two.remove();
+      }
+    });
+  </script>
+</html>
