@@ -1,0 +1,30 @@
+<!-- 공통항목 찾기 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function commonElements(kArray) {
+      for (let i = 0; i < kArray.length; i++) {
+        for (const idx in kArray[i]) {
+          if (Object.hasOwnProperty.call(kArray[i], idx)) {
+            const element = kArray[i][idx];
+          }
+        }
+      }
+    }
+
+    console.log(
+      commonElements([
+        [1, 2, 3],
+        [1, 2, 3, 4],
+        [1, 2],
+      ])
+    );
+  </script>
+</html>
