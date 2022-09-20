@@ -1,0 +1,20 @@
+.App2{
+    display: flex;
+    color: white;
+    text-align: center;
+}
+.block{
+    border: 1px solid black;
+    
+}
+.block img{
+    width: auto;
+    height: 200px;
+}
+.user{
+
+    background-color: blue;
+}
+.computer{
+    background-color: red;
+}
