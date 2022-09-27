@@ -1,0 +1,252 @@
+/* header--------------------------------------------------- */
+.header{
+    background-color: black;
+    width: 1536px;
+    height: 90px;
+    border-bottom: 3px solid white;
+}
+.header_wrap{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.header_home img{
+    width: 70px;
+    height: auto;
+    position:absolute;
+    top: 15px;
+    left: 50px;
+}
+.header_board{
+    color: rgb(245,223,77);
+    position: absolute;
+    top: 30px;
+    font-size: 30px;
+    left: 500px;
+}
+.header_cloud{
+    color: rgb(245,223,77);
+    position: absolute;
+    top: 30px;
+    font-size: 30px;
+    left: 800px;
+}
+.header_login{
+    color: rgb(245,223,77);
+    position: absolute;
+    top: 30px;
+    font-size: 20px;
+    left: 1200px;
+}
+.header_sign{
+    color: rgb(245,223,77);
+    position: absolute;
+    top: 30px;
+    font-size: 20px;
+    left: 1300px;
+    
+}
+.header_login_btn{
+    color: rgb(245,223,77);
+    position: absolute;
+    top: 30px;
+    font-size: 20px;
+    left: 1200px;
+    background-color: black;
+    border: 2px solid rgb(245,223,77);
+    border-radius: 10px;
+}
+/* header--------------------------------------------------- */
+/* body--------------------------------------------------- */
+.body{
+    background-color: black;
+    width: 1536px;
+    height: 550px;
+    border-bottom: 2px solid white;
+}
+.text{
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    font-size: 100px;
+    display: inline;
+    color: rgb(245,223,77);
+    vertical-align: middle;
+    border-right: 1px solid white;
+    animation:  cursor 0.2s ease infinite;
+}
+/* -----login--------------------------------------------------- */
+.login_form{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.login_form_wrap{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login_form h1{
+    margin: 0px;
+    text-align: center;
+}
+.login_form p{
+    text-align: center;
+}
+.login_form input{
+    width: 190px;
+}
+.login_btn{
+    color: rgb(245,223,77);
+    background-color: rgb(147,149,151);
+    border-radius: 10px;
+    font-size: 30px;
+    width: 200px;
+    height: 50px;
+    margin-top: 20px;
+    display: block;
+}
+/* -----login--------------------------------------------------- */
+/* -----sign--------------------------------------------------- */
+.join_btn{
+    border-radius: 10px;
+    font-size: 30px;
+    color: rgb(245,223,77);
+    background-color: rgb(147,149,151);
+    width: 200px;
+    height: 50px;
+    margin-top: 20px;
+    
+}
+.sign_form{
+    color: white;
+}
+.sign_form h1{
+    margin: 0px;
+}
+/* -----sign--------------------------------------------------- */
+/* -----board--------------------------------------------------- */
+.board_write{
+    display: flex;
+    flex-direction: row;
+}
+.board_write_left{
+    width: 580px;
+    height: 550px;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(147,149,151);
+}
+.board_write_left h1{
+    margin: 0px;
+    margin-top: 5px;
+}
+.write_wrap{
+    border: 1px solid rgb(245,223,77);
+    border-radius: 20px;
+    width: 460px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.write_chart{
+    width: 420px;
+    height: 400px;
+    /* border: 1px solid white; */
+}
+.write_btn{
+    width: 420px;
+    height: 30px;
+    background-color: rgb(147,149,151);
+    color: rgb(245,223,77);
+    border-radius: 10px;
+}
+.board_write_right{
+    color: rgb(147,149,151);
+    width: 1035px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.board_write_right h1{
+    margin: 5px 20px 0 20px;
+    margin-top: 5px;
+    
+}
+.board_write_right textarea{
+    width: 700px;
+    height: 300px;
+    border-radius: 10px;
+}
+.board_write_right_title{
+    font-size: 10px;
+    width: 100px;
+    margin-top: 5px;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-items: center ;
+    align-items: center;
+}
+.board_write_right_title h1{
+    margin-top: 5px;
+}
+.board_write_detail{
+    /* border: 1px solid rgb(147,149,151); */
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    width: 900px;
+    height: 480px;
+}
+.write_title{
+    display: block;
+    width: 700px;
+    border-radius: 10px;
+    height: 25px;
+    margin-top: 5px;
+}
+.write_text{
+    height: 300px;
+    
+}
+.board_write_right_contents{
+    margin-top: 5px;
+}
+.board_write_right_contents div{
+    width: 600px;
+    height: 35px;
+    
+}
+.write_result_btn{
+    position: relative;
+}
+.write_result_btn button{
+    position: absolute;
+    top: 280px;
+    left: 100px;
+    width: 500px;
+    height: 40px;
+    font-size: 25px;
+    border: none;
+    background-color: rgb(147,149,151);
+    color: rgb(245,223,77);
+    border-radius: 10px;
+}
+/* -----board--------------------------------------------------- */
+/* body--------------------------------------------------- */
+/* footer--------------------------------------------------- */
+.footer{
+    background-color: black;
+    width: 1536px;
+    height: calc(100vh - 640px);
+    
+}
+/* footer--------------------------------------------------- */
