@@ -41,6 +41,10 @@ function App() {
   const [loginID, setLoginID] = useState();
   const [loginPW, setLoginPW] = useState();
 
+  // 게시판 데이터
+  const [bdTitle, setBdTitle] = useState([]);
+  const [bdContents, setBdContents] = useState([]);
+
   // 로그인 해야 이용 가능
   const Redirect_mypage = () => {
     return islogin == true ? <Mypage /> : <Navigate to="/" />;
@@ -85,6 +89,10 @@ function App() {
               setisLogin={setisLogin}
               loginID={loginID}
               islogin={islogin}
+              bdTitle={bdTitle}
+              setBdTitle={setBdTitle}
+              bdContents={bdContents}
+              setBdContents={setBdContents}
             />
           }
         />

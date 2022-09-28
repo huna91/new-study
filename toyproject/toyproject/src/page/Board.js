@@ -1,9 +1,15 @@
 import { React, useState } from "react";
 import { Header, Body, Footer } from "../com";
 
-const Board = ({ islogin, setisLogin, loginID }) => {
-  const [bdTitle, setBdTitle] = useState([]);
-  const [bdContents, setBdContents] = useState([]);
+const Board = ({
+  islogin,
+  setisLogin,
+  loginID,
+  bdTitle,
+  setBdTitle,
+  bdContents,
+  setBdContents,
+}) => {
   console.log(bdTitle);
   console.log(bdContents);
   return (
