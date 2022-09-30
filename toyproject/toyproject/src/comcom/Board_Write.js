@@ -1,18 +1,28 @@
 import React, { useCallback, useState } from "react";
 import ReactDOM from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Board_tag from "../comcomcom/Board_tag";
 
 const Board_Write = ({
   loginID,
-  islogin,
+
   bdTitle,
   setBdTitle,
   bdContents,
   setBdContents,
 }) => {
+  const isLogin = useSelector((state) => state.loginData);
+  const boardData = useSelector((state) => state.boardData);
+  const dispatch = useDispatch();
+  const [count, setCount] = useState(1);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const date = new Date();
+  const _date = new Date();
+  let date = `${_date.getFullYear()} / ${
+    _date.getMonth() + 1
+  } / ${_date.getDate()} / ${_date.getHours()} : ${_date.getMinutes()}`;
   const [style, setStyle] = useState({ display: "none" });
+  const [style_tag, setStyle_tag] = useState({ display: "none" });
 
   // 목록에 뿌려주기
   // function _write() {
@@ -37,16 +47,44 @@ const Board_Write = ({
   const _contents = useCallback((e) => {
     setContents(e.target.value);
   }, []);
-  const _bdTitle = useCallback(() => {
-    setBdTitle([...bdTitle, title]);
-    setBdContents([...bdContents, contents]);
-    // _write();
-  }, [setBdTitle, bdTitle, title, setBdContents, bdContents, contents]);
+  // const _bdTitle = useCallback(() => {
+  //   setBdTitle([...bdTitle, title]);
+  //   setBdContents([...bdContents, contents]);
+  //   // _write();
+  // }, [setBdTitle, bdTitle, title, setBdContents, bdContents, contents]);
 
   const write_active = () => {
     style.display == "none"
       ? setStyle({ display: "block" })
       : setStyle({ display: "none" });
+    setStyle_tag({ display: "none" });
+  };
+  const write_end = () => {
+    dispatch({
+      type: "write",
+      payload: {
+        id: count,
+        title: title,
+        writer: isLogin.loginId,
+        date: date,
+        content: contents,
+      },
+    });
+    setCount(count + 1);
+    setStyle({ display: "none" });
+  };
+  const [idPick, setIdPick] = useState(0);
+  const tag_active = (e) => {
+    // console.log(e.target.innerHTML);
+    boardData.find((value) => {
+      if (value.title == e.target.innerHTML) {
+        setIdPick(value.id);
+      }
+    });
+    style.display == "none"
+      ? setStyle_tag({ display: "block" })
+      : setStyle_tag({ display: "none" });
+    setStyle({ display: "none" });
   };
 
   return (
@@ -57,8 +95,21 @@ const Board_Write = ({
         <div className="write_wrap">
           <div className="write_chart">
             <ul id="write_chart_tag">
-              {bdTitle.map((value, index) => {
-                <li key={index}>제목{value}</li>;
+              {boardData.map((value, index) => {
+                return (
+                  <li className="tag" key={index} onClick={tag_active}>
+                    <a>
+                      <span>
+                        <h1>{value.title}</h1>
+                      </span>
+                      <div className="controll">
+                        {" "}
+                        &nbsp; 작성자: {value.writer} &nbsp;,&nbsp; 작성일:{" "}
+                        {value.date}
+                      </div>
+                    </a>
+                  </li>
+                );
               })}
             </ul>
           </div>
@@ -71,6 +122,9 @@ const Board_Write = ({
       </div>
       {/* 왼쪽거 클릭하면 내용이랑 나오는 곳 */}
       <div className="board_write_right">
+        <div className="board_tag_active" style={style_tag}>
+          <Board_tag idPick={idPick} />
+        </div>
         <div className="board_write_active" style={style}>
           <div className="board_write_detail">
             <div className="board_write_right_title">
@@ -83,13 +137,8 @@ const Board_Write = ({
               <div>
                 <input className="write_title" onChange={_title}></input>
               </div>
-              <div>{islogin ? loginID : "로그인plz"}</div>
-              <div>
-                {date.getFullYear()}&nbsp;/&nbsp;
-                {date.getMonth() + 1}&nbsp;/&nbsp;
-                {date.getDate()}&nbsp;/&nbsp;
-                {date.getHours()}:{date.getMinutes()}
-              </div>
+              <div>{isLogin.activeLogin ? isLogin.loginId : "로그인plz"}</div>
+              <div>{date}</div>
               <div className="write_text">
                 <textarea
                   className="write_contents"
@@ -97,9 +146,12 @@ const Board_Write = ({
                 ></textarea>
               </div>
               <div className="write_result_btn">
-                <button onClick={_bdTitle}>작성완료</button>
+                <button onClick={write_end}>작성완료</button>
               </div>
             </div>
+            <button className="x_btn" onClick={write_active}>
+              X
+            </button>
           </div>
         </div>
       </div>

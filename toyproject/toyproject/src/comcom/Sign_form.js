@@ -1,8 +1,11 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Sign_form = ({ sign, onSignin }) => {
   const navi = useNavigate();
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userData);
   const [idValue, setIdValue] = useState();
   const [pwValue, setPwValue] = useState();
   const [pwCheckValue, setPwCheckValue] = useState();
@@ -15,17 +18,19 @@ const Sign_form = ({ sign, onSignin }) => {
   const keyInput_check = (e) => {
     setPwCheckValue(e.target.value);
   };
+  let count = 0;
   function join() {
     if (pwValue == pwCheckValue) {
-      sign.userId = idValue;
-      sign.userPw = pwValue;
-      onSignin();
+      let data = {
+        num: count,
+        userId: idValue,
+        userPw: pwValue,
+      };
+      console.log(data);
+      dispatch({ type: "join", payload: data });
     } else {
       alert("비밀번호를 확인하세요");
     }
-    console.log(sign);
-    // console.log(pw.value);
-    // console.log(pwcheck.value);
     navi("/login");
   }
   return (

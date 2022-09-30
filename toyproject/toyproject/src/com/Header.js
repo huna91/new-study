@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { img_logo } from "../images";
+import { useSelector, useDispatch } from "react-redux";
 
-const Header = ({ islogin, loginID, setisLogin }) => {
+const Header = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
+  const islogin = useSelector((state) => state.loginData);
   function move(e) {
     // console.log(e.target.innerHTML);
     // e.target.innerHTML == "게시판" ? console.log("성공") : console.log("실패?");
@@ -15,10 +18,8 @@ const Header = ({ islogin, loginID, setisLogin }) => {
       nav("/cloud");
     } else if (e.target.innerHTML == "로그인") {
       nav("/login");
-      // } else if (e.target.innerHTML == { loginID }) {
-      //   nav("/sign");
     } else if (e.target.innerHTML == "로그아웃") {
-      setisLogin(false);
+      dispatch({ type: "logout" });
       nav("/");
     }
   }
@@ -34,7 +35,7 @@ const Header = ({ islogin, loginID, setisLogin }) => {
         <div className="header_cloud">
           <a onClick={move}>구름방</a>
         </div>
-        {islogin ? (
+        {islogin.activeLogin ? (
           <button className="header_login_btn" onClick={move}>
             로그아웃
           </button>
@@ -44,11 +45,12 @@ const Header = ({ islogin, loginID, setisLogin }) => {
           </button>
         )}
 
-        {/* <div className="header_login">
-          <a onClick={move}>로그인</a>
-        </div> */}
         <div className="header_sign">
-          {islogin ? <a>{loginID}님 환영합니다.</a> : <a>로그인 하쇼</a>}
+          {islogin ? (
+            <a>{islogin.loginId}님 환영합니다.</a>
+          ) : (
+            <a>로그인 하쇼</a>
+          )}
         </div>
       </div>
     </div>
